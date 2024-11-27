@@ -38,7 +38,7 @@ export default function ImageInputButton() {
       <label htmlFor="image-upload">
         <Button
           variant="default"
-          className="px-4 py-2 bg-white text-black hover:bg-black hover:text-white ease-in-out duration-300"
+          className="px-4 py-2 bg-white text-black hover:bg-black hover:text-white ease-in-out duration-300 rounded-full"
         >
           <ImageIcon />
           <input
