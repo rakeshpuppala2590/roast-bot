@@ -15,7 +15,7 @@ export default function Prompt() {
         <ImageInputButton />
         <Input
           placeholder="Enter your personality traits"
-          className="w-full md:w-2/3 lg:w-3/4"
+          className="w-full md:w-2/3 lg:w-3/4 bg-white text-black"
         />
       </div>
     </div>
