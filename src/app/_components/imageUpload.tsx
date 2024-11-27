@@ -36,7 +36,10 @@ export default function ImageInputButton() {
       )} */}
       {/* Upload Button */}
       <label htmlFor="image-upload">
-        <Button variant="default" className="px-4 py-2 bg-white text-black">
+        <Button
+          variant="default"
+          className="px-4 py-2 bg-white text-black hover:bg-black hover:text-white ease-in-out duration-300"
+        >
           <ImageIcon />
           <input
             id="image-upload"
