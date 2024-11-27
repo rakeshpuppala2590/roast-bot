@@ -11,6 +11,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        lightpurple: "#E6E6FA",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
