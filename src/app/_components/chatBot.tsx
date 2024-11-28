@@ -1,4 +1,6 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 interface ChatMessage {
@@ -7,7 +9,7 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-export default function RoastBot() {
+export default function ChatBot() {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -49,11 +51,11 @@ export default function RoastBot() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Roast Bot 🔥</h1>
+    <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-transparent rounded-lg border p-4">
+      <div className="text-center"></div>
 
       {/* Chat Messages */}
-      <div className="h-[60vh] overflow-y-auto mb-4 space-y-4 p-4 border rounded-lg">
+      <div className="flex-1 w-full overflow-y-auto p-4 border rounded-lg space-y-4 bg-lavender max-h-[40vh]">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -62,14 +64,14 @@ export default function RoastBot() {
             }`}
           >
             <div
-              className={`max-w-[70%] p-3 rounded-lg ${
+              className={`max-w-[70%] p-3 rounded-xl ${
                 message.isBot
-                  ? "bg-gray-200 rounded-tl-none"
-                  : "bg-blue-500 text-white rounded-tr-none"
+                  ? "bg-purple-400/50 text-black rounded-tl-none"
+                  : "bg-white text-black rounded-tr-none"
               }`}
             >
-              <p>{message.content}</p>
-              <span className="text-xs opacity-70">
+              <p className="whitespace-pre-wrap">{message.content}</p>
+              <span className="text-xs opacity-70 block mt-1">
                 {message.timestamp.toLocaleTimeString()}
               </span>
             </div>
@@ -78,21 +80,23 @@ export default function RoastBot() {
       </div>
 
       {/* Input Form */}
-      <form onSubmit={handleSubmit} className="flex gap-2">
-        <input
-          type="text"
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full gap-2 mt-4 bg-lavender p-2 rounded-lg"
+      >
+        <Input
+          className="w-full bg-white text-black ease-in-out duration-300 rounded px-4 py-2 text-lg"
+          placeholder="Say something!"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Type your message..."
-          className="flex-1 p-2 border rounded-md"
         />
-        <button
-          type="submit"
+        <Button
+          variant="default"
           disabled={loading}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+          className="bg-purple-800 text-white font-medium px-4 py-2 rounded-md hover:bg-black hover:text-white ease-in-out duration-300 disabled:bg-gray-400"
         >
           {loading ? "Sending..." : "Send"}
-        </button>
+        </Button>
       </form>
     </div>
   );

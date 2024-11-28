@@ -1,24 +1,17 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import ImageInputButton from "./imageUpload";
 import SoundAnimation from "./soundAnimation";
+import ChatBot from "./chatBot";
 
 export default function Prompt() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center gap-4 bg-transparent">
-      <SoundAnimation />
-      <h1 className="text-6xl font-bold">Ready to get roasted?</h1>
-      <p className="text-md">
-        Insert an image of yourself or enter your personality traits below to
-        get started
-      </p>
-      <div className="flex flex-row justify-center gap-2 mt-4 w-full max-w-3xl">
-        <ImageInputButton />
-        <Input
-          placeholder="Enter your personality traits"
-          className="w-full md:w-2/3 lg:w-3/4 bg-white text-black ease-in-out duration-300 rounded-full px-4 py-2 text-lg"
-        />
+    <div className="flex flex-1 flex-col items-center justify-center gap-8 bg-transparent min-h-screen">
+      <div className="flex flex-row justify-center gap-3">
+        <SoundAnimation />
+      </div>
+      <h1 className="text-6xl font-bold text-center">Yapster is listening!</h1>
+      <div className="w-full max-w-3xl">
+        <ChatBot />
       </div>
     </div>
   );
