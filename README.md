@@ -1,1 +1,1 @@
-# roast-bot
+# Candid Companion
