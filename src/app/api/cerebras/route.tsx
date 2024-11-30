@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import Cerebras from "@cerebras/cerebras_cloud_sdk";
 
 const client = new Cerebras({
-  apiKey: process.env.NEXT_PUBLIC_CEREBRAS_API_KEY,
+  apiKey: process.env.CEREBRAS_API_KEY,
 });
 
 const SYSTEM_MESSAGE = `You are RoastBot, an AI that specializes in creating clever and humorous roasts. 
