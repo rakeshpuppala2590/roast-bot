@@ -97,7 +97,7 @@ Contributions are welcome! To contribute:
 - Include a roast intensity slider for customizable humor levels
 - Support image inputs from users, so images can also be roasted
 
-# Acknowledgements
+## Acknowledgements
 - Inspired by the humor and creativity of online communities like Reddit
 - Built with 💻, ☕, and a touch of mischief.
    
