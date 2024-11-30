@@ -1,7 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth, db, provider } from "@/lib/firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  addDoc,
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 interface ChatMessage {
   content: string;
@@ -14,6 +23,44 @@ interface ChatbotProps {
 }
 
 export default function ChatBot({ onFirstMessage }: ChatbotProps) {
+  useEffect(() => {
+    const fetchChatHistory = async () => {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+
+      if (!currentUser) {
+        console.error("No user logged in");
+        return;
+      }
+
+      const userId = currentUser.uid;
+
+      try {
+        const q = query(
+          collection(db, "users", userId, "chatHistory"),
+          orderBy("timestamp", "asc")
+        );
+        const querySnapshot = await getDocs(q);
+
+        const fetchedMessages: ChatMessage[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+
+          fetchedMessages.push({
+            ...data,
+            timestamp: data.timestamp.toDate(), // Convert Firestore Timestamp to Date
+          } as ChatMessage);
+        });
+
+        setMessages(fetchedMessages);
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    };
+
+    fetchChatHistory();
+  }, []);
+
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -22,28 +69,43 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
     e.preventDefault();
     if (!prompt.trim()) return;
 
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      console.error("No user logged in");
+      return;
+    }
+
+    const userId = currentUser.uid;
+
     // Add user message
     const userMessage: ChatMessage = {
       content: prompt,
       isBot: false,
       timestamp: new Date(),
     };
+
     setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
+
+    // Save user message to Firestore
+    try {
+      await addDoc(collection(db, "users", userId, "chatHistory"), userMessage);
+    } catch (error) {
+      console.error("Error saving user message:", error);
+    }
 
     if (messages.length === 0) {
       onFirstMessage();
     }
 
     try {
-      const query = {
+      const response = await fetch("/api/cerebras", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ input: prompt }),
-      };
-
-      const response = await fetch("/api/cerebras", query);
-
+      });
       const data = await response.json();
 
       // Add bot message
@@ -52,7 +114,18 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
         isBot: true,
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, botMessage]);
+
+      // Save bot message to Firestore
+      try {
+        await addDoc(
+          collection(db, "users", userId, "chatHistory"),
+          botMessage
+        );
+      } catch (error) {
+        console.error("Error saving bot message:", error);
+      }
     } catch (error) {
       console.error("Error:", error);
     } finally {
