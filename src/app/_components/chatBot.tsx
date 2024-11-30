@@ -36,11 +36,14 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
     }
 
     try {
-      const response = await fetch("/api/cerebras", {
+      const query = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ input: prompt }),
-      });
+      };
+
+      const response = await fetch("/api/cerebras", query);
+
       const data = await response.json();
 
       // Add bot message
@@ -59,7 +62,7 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
   };
 
   return (
-      <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-opacity-50 rounded-lg p-4">
+    <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-transparent rounded-lg p-4">
       <div className="text-center"></div>
 
       {/* Chat Messages */}
@@ -74,8 +77,8 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
             <div
               className={`max-w-[70%] p-3 rounded-xl ${
                 message.isBot
-                  ? "bg-gray-200/70 text-black rounded-tl-none"
-                  : "bg-white text-black rounded-tr-none"
+                  ? "bg-gray-200/85 text-black rounded-tl-none"
+                  : "bg-white/95 text-black rounded-tr-none"
               }`}
             >
               <p className="whitespace-pre-wrap">{message.content}</p>
@@ -90,7 +93,7 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="flex w-full gap-2 mt-4 bg-gray p-2 rounded-lg"
+        className="flex w-full gap-2 mt-4 bg-lavender p-2 rounded-lg"
       >
         <Input
           className="w-full bg-white text-black ease-in-out duration-300 rounded px-4 py-2 text-lg"
@@ -101,7 +104,7 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
         <Button
           variant="default"
           disabled={loading}
-          className="bg-gradient-to-l from-purple-600/80 to-blue-600/80 text-white font-medium px-4 py-2 rounded-md hover:bg-black hover:text-white ease-in-out duration-300 disabled:bg-gray-400"
+          className="bg-gradient-to-l from-purple-500/95 to-orange-500/95 text-white font-bold px-4 py-2 rounded-md hover:bg-black hover:text-white ease-in-out duration-300 disabled:bg-gray-400"
         >
           {loading ? "Sending..." : "Send"}
         </Button>

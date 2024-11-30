@@ -14,36 +14,35 @@ export default function Home() {
 
   if (user) {
     return (
-        <div className="flex flex-col h-screen bg-black text-black"
-            style={{
-              
-                backgroundImage: "url('/roastbot.jpg')",
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                width: '100%', 
-                height: '100vh', 
-            }}
-        >
+      <div
+        className="flex flex-col h-screen bg-black text-black"
+        style={{
+          backgroundImage: "url('/roastbot.jpg')",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          width: "100%",
+          height: "100vh",
+        }}
+      >
         <Prompt />
       </div>
     );
   }
 
   return (
-      <div className="flex flex-col items-center justify-center h-screen bg-black text-black"
-          style={{
-     
-              backgroundImage: "url('/roastbot.jpg')",
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat', 
-              backgroundPosition: 'center',
-              width: '100%',
-              height: '100vh'
-   
-          }}
-      >
-          <div className="w-full max-w-md p-6 bg-white bg-opacity-50 rounded-lg shadow-md">
+    <div
+      className="flex flex-col items-center justify-center h-screen bg-black text-black"
+      style={{
+        backgroundImage: "url('/roastbot.jpg')",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
+      <div className="w-full max-w-md p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center">
           {isLogin ? "Log In" : "Sign Up"}
         </h1>
@@ -52,7 +51,7 @@ export default function Home() {
           <p className="text-center mb-2">Or</p>
           <GoogleSignIn />
         </div>
-        <p className="mt-4 text-center">
+        <p className="mt-4 text-center font-medium">
           {isLogin ? "Don't have an account? " : "Already have an account? "}
           <button
             onClick={() => setIsLogin(!isLogin)}
