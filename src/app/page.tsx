@@ -14,14 +14,29 @@ export default function Home() {
 
   if (user) {
     return (
-      <div className="flex flex-col h-screen bg-lavender text-black">
+      <div className="flex flex-col h-screen text-black">
         <Prompt />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-lavender text-black">
+    <div className="flex flex-col items-center justify-center h-screen bg-transparent text-black">
+      {/* Background Animation */}
+      <div className="area absolute inset-0 -z-10">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4 text-center">
           {isLogin ? "Log In" : "Sign Up"}

@@ -9,7 +9,11 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-export default function ChatBot() {
+interface ChatbotProps {
+  onFirstMessage: () => void;
+}
+
+export default function ChatBot({ onFirstMessage }: ChatbotProps) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -26,6 +30,10 @@ export default function ChatBot() {
     };
     setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
+
+    if (messages.length === 0) {
+      onFirstMessage();
+    }
 
     try {
       const response = await fetch("/api/cerebras", {
@@ -51,11 +59,11 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-transparent rounded-lg border p-4">
+    <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-transparent rounded-lg p-4">
       <div className="text-center"></div>
 
       {/* Chat Messages */}
-      <div className="flex-1 w-full overflow-y-auto p-4 border rounded-lg space-y-4 bg-lavender max-h-[40vh]">
+      <div className="flex-1 w-full overflow-y-auto p-4 rounded-lg space-y-4 bg-lavender max-h-[40vh] chat-scrollbar">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -66,7 +74,7 @@ export default function ChatBot() {
             <div
               className={`max-w-[70%] p-3 rounded-xl ${
                 message.isBot
-                  ? "bg-purple-400/50 text-black rounded-tl-none"
+                  ? "bg-gray-200/70 text-black rounded-tl-none"
                   : "bg-white text-black rounded-tr-none"
               }`}
             >
@@ -93,7 +101,7 @@ export default function ChatBot() {
         <Button
           variant="default"
           disabled={loading}
-          className="bg-purple-800 text-white font-medium px-4 py-2 rounded-md hover:bg-black hover:text-white ease-in-out duration-300 disabled:bg-gray-400"
+          className="bg-gradient-to-l from-purple-600/80 to-blue-600/80 text-white font-medium px-4 py-2 rounded-md hover:bg-black hover:text-white ease-in-out duration-300 disabled:bg-gray-400"
         >
           {loading ? "Sending..." : "Send"}
         </Button>
