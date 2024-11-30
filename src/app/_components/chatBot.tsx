@@ -59,7 +59,7 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-transparent rounded-lg p-4">
+      <div className="flex flex-col items-center justify-between w-full max-w-3xl bg-opacity-50 rounded-lg p-4">
       <div className="text-center"></div>
 
       {/* Chat Messages */}
@@ -90,7 +90,7 @@ export default function ChatBot({ onFirstMessage }: ChatbotProps) {
       {/* Input Form */}
       <form
         onSubmit={handleSubmit}
-        className="flex w-full gap-2 mt-4 bg-lavender p-2 rounded-lg"
+        className="flex w-full gap-2 mt-4 bg-gray p-2 rounded-lg"
       >
         <Input
           className="w-full bg-white text-black ease-in-out duration-300 rounded px-4 py-2 text-lg"
