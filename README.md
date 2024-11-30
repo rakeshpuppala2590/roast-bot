@@ -62,12 +62,12 @@ Follow these steps to get Roast Bot running locally:
    ```bash
    npm run dev
    ```
-# Usage
+## Usage
 1. Launch the application and interact with Roast Bot via the intuitive chat interface.
 2. Type a prompt to receive a witty response.
 3. Customize the bot's personality by modifying the backend roast generation logic.
 
-# Contributing
+## Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository:
   ```bash
@@ -92,7 +92,7 @@ Contributions are welcome! To contribute:
   ```
 10. Open a pull reqeuest from your branch to the main reposity.
 
-# Future Enhancements
+## Future Enhancements
 - Add support for multiple languages
 - Include a roast intensity slider for customizable humor levels
 - Support image inputs from users, so images can also be roasted
